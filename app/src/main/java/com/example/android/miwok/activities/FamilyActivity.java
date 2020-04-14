@@ -1,6 +1,8 @@
 package com.example.android.miwok.activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -54,6 +56,12 @@ public class FamilyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_word);
+        setSupportActionBar(toolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
 
         mAudioManager = (AudioManager) FamilyActivity.this.getSystemService(Context.AUDIO_SERVICE);
 

@@ -8,20 +8,50 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PhrasesActivity"
-            android:label="@string/category_phrases"/>
-        <activity android:name=".activities.ColorsActivity"
-            android:label="@string/category_colors"/>
-        <activity android:name=".activities.FamilyActivity"
-            android:label="@string/category_family"/>
-        <activity android:name=".activities.NumbersActivity"
-            android:label="@string/category_numbers"/>
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.PhrasesActivity"
+            android:label="@string/category_phrases"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.ColorsActivity"
+            android:label="@string/category_colors"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.FamilyActivity"
+            android:label="@string/category_family"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".activities.NumbersActivity"
+            android:label="@string/category_numbers"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+
         </activity>
     </application>
 
