@@ -45,3 +45,15 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 License for the specific language governing permissions and limitations under
 the License.
+
+To Do
+-----
+
+- Move tab titles to string resources
+
+Known Bugs & Issues
+-------------------
+
+- Each category fragment has it's own AudioManager, this causing unexpected
+behavior when playing audio from different fragment at the same time.
+
