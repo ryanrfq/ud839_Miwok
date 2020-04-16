@@ -1,24 +1,31 @@
-package com.example.android.miwok.activities;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+package com.example.android.miwok.fragments;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.miwok.R;
-import com.example.android.miwok.pojos.Word;
 import com.example.android.miwok.adapters.WordAdapter;
+import com.example.android.miwok.pojos.Word;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-public class NumbersActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class NumbersFragment extends Fragment {
 
     private AudioManager mAudioManager;
     private AudioManager.OnAudioFocusChangeListener mAfChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -52,18 +59,17 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
+    public NumbersFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_word, container, false);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_word);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        mAudioManager = (AudioManager) NumbersActivity.this.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> numberList = new ArrayList<Word>();
         numberList.add(new Word("lutti", "one", R.raw.number_one, R.drawable.number_one));
@@ -77,8 +83,8 @@ public class NumbersActivity extends AppCompatActivity {
         numberList.add(new Word("wo'e", "nine", R.raw.number_nine, R.drawable.number_nine));
         numberList.add(new Word("na'aacha", "ten", R.raw.number_ten, R.drawable.number_ten));
 
-        WordAdapter adapter = new WordAdapter(this, numberList, R.color.category_numbers);
-        ListView lv = findViewById(R.id.list);
+        WordAdapter adapter = new WordAdapter(getActivity(), numberList, R.color.category_numbers);
+        ListView lv = rootView.findViewById(R.id.list);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,7 +97,7 @@ public class NumbersActivity extends AppCompatActivity {
                 int afResult = mAudioManager.requestAudioFocus(mAfChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (afResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    mMediaPlayer = MediaPlayer.create(NumbersActivity.this, currentWord.getAudioResourceId());
+                    mMediaPlayer = MediaPlayer.create(getContext(), currentWord.getAudioResourceId());
                     mMediaPlayer.start();
                     mMediaPlayer.setOnCompletionListener(mMpCompletionListener);
                 } else if (afResult == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
@@ -100,10 +106,13 @@ public class NumbersActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return rootView;
     }
 
+
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         nullifyMediaPlayer();
         mAudioManager.abandonAudioFocus(mAfChangeListener);

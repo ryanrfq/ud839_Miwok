@@ -25,54 +25,18 @@
         android:id="@+id/toolbar_main"
         style="@style/ToolbarTheme" />
 
-    <FrameLayout
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_category"
+        style="@style/TabStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/category_numbers">
+        app:tabTextAppearance="@style/TabTextStyle" />
 
-        <TextView
-            android:id="@+id/numbers"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_numbers" />
-    </FrameLayout>
-
-
-    <FrameLayout
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/category_family">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/family"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_family" />
-    </FrameLayout>
+    </androidx.viewpager2.widget.ViewPager2>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/category_colors">
-
-        <TextView
-            android:id="@+id/colors"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_colors" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/category_phrases">
-
-        <TextView
-            android:id="@+id/phrases"
-            style="@style/CategoryStyle"
-            android:background="?android:selectableItemBackground"
-            android:text="@string/category_phrases" />
-
-    </FrameLayout>
 </LinearLayout>

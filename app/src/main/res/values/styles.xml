@@ -39,6 +39,20 @@
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
+    <style name="TabStyle">
+        <item name="android:drawSelectorOnTop">true</item>
+        <item name="tabIndicatorColor">@android:color/white</item>
+        <item name="tabBackground">@color/primary_color</item>
+        <item name="tabSelectedTextColor">@android:color/white</item>
+    </style>
+
+    <style name="TabTextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/tab_unselected_text</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="WordListStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/list_item_height</item>

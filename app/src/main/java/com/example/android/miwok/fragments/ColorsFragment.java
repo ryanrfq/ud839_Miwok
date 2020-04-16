@@ -1,14 +1,12 @@
-package com.example.android.miwok.activities;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+package com.example.android.miwok.fragments;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -18,7 +16,15 @@ import com.example.android.miwok.pojos.Word;
 
 import java.util.ArrayList;
 
-public class ColorsActivity extends AppCompatActivity {
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ColorsFragment extends Fragment {
 
     private AudioManager mAudioManager;
     private AudioManager.OnAudioFocusChangeListener mAfChangeListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -43,7 +49,7 @@ public class ColorsActivity extends AppCompatActivity {
         }
     };
 
-    private MediaPlayer mMediaPlayer;
+    MediaPlayer mMediaPlayer;
     MediaPlayer.OnCompletionListener mMpCompletionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
@@ -52,18 +58,17 @@ public class ColorsActivity extends AppCompatActivity {
         }
     };
 
+    public ColorsFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_word);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_word, container, false);
 
-        Toolbar toolbar = findViewById(R.id.toolbar_word);
-        setSupportActionBar(toolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-
-        mAudioManager = (AudioManager) ColorsActivity.this.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> colorList = new ArrayList<Word>();
         colorList.add(new Word("weṭeṭṭi", "red", R.raw.color_red, R.drawable.color_red));
@@ -75,8 +80,8 @@ public class ColorsActivity extends AppCompatActivity {
         colorList.add(new Word("ṭopiisә", "dusty yellow", R.raw.color_dusty_yellow, R.drawable.color_dusty_yellow));
         colorList.add(new Word("chiwiiṭә", "mustard yellow", R.raw.color_mustard_yellow, R.drawable.color_mustard_yellow));
 
-        WordAdapter adapter = new WordAdapter(this, colorList, R.color.category_colors);
-        ListView lv = findViewById(R.id.list);
+        WordAdapter adapter = new WordAdapter(getActivity(), colorList, R.color.category_colors);
+        ListView lv = rootView.findViewById(R.id.list);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,11 +91,10 @@ public class ColorsActivity extends AppCompatActivity {
 
                 nullifyMediaPlayer();
 
-
                 int afResult = mAudioManager.requestAudioFocus(mAfChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 if (afResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    mMediaPlayer = MediaPlayer.create(ColorsActivity.this, currentWord.getAudioResourceId());
+                    mMediaPlayer = MediaPlayer.create(getContext(), currentWord.getAudioResourceId());
                     mMediaPlayer.start();
                     mMediaPlayer.setOnCompletionListener(mMpCompletionListener);
                 } else if (afResult == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
@@ -99,10 +103,12 @@ public class ColorsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        return rootView;
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         nullifyMediaPlayer();
         mAudioManager.abandonAudioFocus(mAfChangeListener);

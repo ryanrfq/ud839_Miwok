@@ -17,42 +17,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".activities.PhrasesActivity"
-            android:label="@string/category_phrases"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".activities.ColorsActivity"
-            android:label="@string/category_colors"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".activities.FamilyActivity"
-            android:label="@string/category_family"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-        </activity>
-
-        <activity
-            android:name=".activities.NumbersActivity"
-            android:label="@string/category_numbers"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
-
-        </activity>
     </application>
 
 </manifest>
